@@ -4,6 +4,9 @@ import { StyleSheet, View } from 'react-native';
 
 import HomeScreen from './screens/HomeScreen';
 
+/**
+ * App is the root component of the application, rendering the HomeScreen and a status bar.
+ */
 const App: React.FC = () => {
   return (
     <View style={styles.container}>

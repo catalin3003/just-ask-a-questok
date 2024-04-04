@@ -9,6 +9,10 @@ type Video = {
   likes: number;
 };
 
+/**
+ * HomeScreen displays a list of videos fetched from a backend service.
+ * Users can swipe through videos and like them by double-tapping.
+ */
 const HomeScreen: React.FC = () => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [viewableItems, setViewableItems] = useState<string[]>([]);
@@ -17,7 +21,7 @@ const HomeScreen: React.FC = () => {
     fetch('http://localhost:3000/videos')
       .then(response => response.json())
       .then((data: Video[]) => setVideos(data))
-      .catch(console.error);
+      .catch(error => console.error("Failed to fetch videos:", error));
   }, []);
 
   const viewabilityConfig: ViewabilityConfig = {

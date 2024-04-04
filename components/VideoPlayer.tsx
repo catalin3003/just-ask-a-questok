@@ -11,6 +11,10 @@ interface VideoPlayerProps {
 
 const { width, height } = Dimensions.get('window');
 
+/**
+ * VideoPlayer renders a single video that users can play/pause with a single tap
+ * and like/unlike with a double tap. It auto-plays videos when they become viewable.
+ */
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, initialLikes, onLike, isViewable }) => {
   const videoRef = useRef<Video>(null);
   const [likes, setLikes] = useState(initialLikes);
