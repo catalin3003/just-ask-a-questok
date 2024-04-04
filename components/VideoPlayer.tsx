@@ -49,7 +49,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, initialLikes, onLik
           source={{ uri: videoURI }}
           useNativeControls={false}
           resizeMode={ResizeMode.COVER}
-          isLooping
           shouldPlay={isPlaying}
         />
         <View style={styles.likesContainer}>

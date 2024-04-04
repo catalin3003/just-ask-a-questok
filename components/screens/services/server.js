@@ -1,4 +1,13 @@
-export const videos = [
+const express = require('express')
+const cors = require('cors')
+
+const app = express()
+const PORT = process.env.PORT || 3000
+
+app.use(cors()) // Enable CORS for all routes
+app.use(express.json()) // Parse JSON bodies
+
+let videos = [
   {
     id: '1',
     uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/AaXXPDyt/JAAQ-RM-AX-001.mp4.mp4',
@@ -25,3 +34,24 @@ export const videos = [
     likes: 0,
   },
 ]
+
+// Get all videos
+app.get('/videos', (req, res) => {
+  res.json(videos)
+})
+
+// Increment likes for a video
+app.post('/videos/:id/like', (req, res) => {
+  const { id } = req.params
+  videos = videos.map((video) => {
+    if (video.id === id) {
+      return { ...video, likes: video.likes + 1 }
+    }
+    return video
+  })
+  res.status(204).send()
+})
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`)
+})
