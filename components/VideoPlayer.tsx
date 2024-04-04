@@ -12,20 +12,31 @@ const { width, height } = Dimensions.get('window');
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, onPlaybackStatusUpdate }) => {
   const videoRef = useRef<Video>(null);
   const [likes, setLikes] = useState(0);
-  
-  let lastTap: number = Date.now();
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const handleDoubleTap = () => {
+  let lastTap: number = 0;
+
+  const handleTap = () => {
     const now = Date.now();
     if (lastTap && (now - lastTap) < 300) {
       setLikes(likes + 1);
     } else {
       lastTap = now;
+      setTimeout(() => {
+        if (now === lastTap) {
+          if (isPlaying) {
+            videoRef.current?.pauseAsync();
+          } else {
+            videoRef.current?.playAsync();
+          }
+          setIsPlaying(!isPlaying);
+        }
+      }, 300);
     }
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handleDoubleTap}>
+    <TouchableWithoutFeedback onPress={handleTap}>
       <View style={styles.container}>
         <Video
           ref={videoRef}
@@ -34,12 +45,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, onPlaybackStatusUpd
           useNativeControls={false}
           resizeMode={ResizeMode.COVER}
           isLooping
-          shouldPlay={false}
+          shouldPlay={isPlaying}
           onPlaybackStatusUpdate={onPlaybackStatusUpdate}
         />
-        <Text style={styles.likesText}>
-          {likes > 0 && `Likes: ${likes}`}
-        </Text>
+        <View style={styles.likesContainer}>
+          <Text style={styles.likesText}>❤️ {likes}</Text>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -47,16 +58,20 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, onPlaybackStatusUpd
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width,
+    height,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000',
   },
-  likesText: {
+  likesContainer: {
     position: 'absolute',
-    bottom: 40,
+    bottom: 60,
     right: 20,
+  },
+  likesText: {
     color: 'white',
+    fontSize: 24,
   },
 });
 
