@@ -11,27 +11,27 @@ let videos = [
   {
     id: '1',
     uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/AaXXPDyt/JAAQ-RM-AX-001.mp4.mp4',
-    likes: 4,
+    likes: 34,
   },
   {
     id: '2',
     uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/jeZ26hu9/JAAQ-RM-AX-002.mp4.mp4',
-    likes: 3,
+    likes: 355,
   },
   {
     id: '3',
     uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/tBmQgLTl/JAAQ-RM-AX-003.mp4.mp4',
-    likes: 2,
+    likes: 212,
   },
   {
     id: '4',
     uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/qg1d94dG/JAAQ-RM-AX-004.mp4.mp4',
-    likes: 1,
+    likes: 12,
   },
   {
     id: '5',
     uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/pmlh50Gk/JAAQ-RM-AX-008.mp4.mp4',
-    likes: 0,
+    likes: 99,
   },
 ]
 
