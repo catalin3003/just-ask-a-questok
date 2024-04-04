@@ -1,6 +1,6 @@
 # Just Ask A QuesTok
 
-This project is a simplified version of a TikTok-style video player, allowing users to view short videos, swipe up to see the next video, and double-tap to 'like' a video. The project is split into two main parts: a React Native frontend app and a Node.js/Express backend server.
+This project is a simplified version of a TikTok-style video player. It features a React Native frontend app and a Node.js/Express backend server, both utilizing TypeScript for enhanced development experience.
 
 ## Getting Started
 
@@ -8,41 +8,33 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- Node.js and npm (https://nodejs.org/)
-- Expo CLI for React Native development (`npm install -g expo-cli`)
-- A text editor or IDE of your choice
-- Git for version control
+- Node.js and npm
+- Expo
+- Git
 
-### Installing
+### Backend Setup
 
-#### Backend Setup
+1. Navigate to the `backend` directory.
+2. Install dependencies: `npm install`.
+3. Start the server: `npm run start`.
+4. The server will run on `http://localhost:3000`.
 
-1. Clone the repository to your local machine.
-2. Navigate to the backend directory: `cd services`
-3. Install the necessary npm packages: `npm install`
-4. Start the server: `npm start` or `node server.js`
-5. The server will start on `http://localhost:3000`.
+### Frontend Setup
 
-#### Frontend Setup
-
-1. Navigate back to the frontend (root) directory: `cd ..`
-2. Install the necessary npm packages: `npm install`
-3. Start the Expo development server: `expo start`
-4. Follow the on-screen instructions to open the app on an iOS/Android simulator or your physical device using the Expo Go app.
+1. From the project root, install dependencies: `npm install`.
+2. Start the Expo dev server: `expo start`.
+3. Follow on-screen instructions to open the app.
 
 ### Usage
 
 - The app displays a list of videos fetched from the backend server.
 - Swipe up to navigate to the next video.
-- Double-tap on a video to 'like' it. Likes are updated in real-time and persisted on the backend.
+- Single-tap on a video to play or pause it.
+- Double-tap on a video to 'like' it or 'unlike' it. Likes are updated in real-time and persisted on the backend.
 
 ## Built With
 
-- [React Native](https://reactnative.dev/) - The framework used for the mobile app
-- [Expo](https://expo.io/) - Open-source platform for making universal native apps
-- [Node.js](https://nodejs.org/) - JavaScript runtime for the backend
-- [Express](https://expressjs.com/) - Web application framework for Node.js
-- [cors](https://www.npmjs.com/package/cors) - Node.js package for providing a Connect/Express middleware that can be used to enable CORS
+- React Native, Expo, Node.js, Express, TypeScript
 
 ## Authors
 
@@ -51,9 +43,3 @@ These instructions will get you a copy of the project up and running on your loc
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
