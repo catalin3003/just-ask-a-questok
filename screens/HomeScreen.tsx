@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, type ViewToken, type ViewabilityConfig } from 'react-native';
 
-import VideoPlayer from '../VideoPlayer';
+import VideoPlayer from '../components/VideoPlayer';
 
 type Video = {
   id: string;

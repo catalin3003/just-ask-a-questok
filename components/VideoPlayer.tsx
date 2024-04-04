@@ -64,7 +64,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, initialLikes, onLik
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handleTap}>
+    <TouchableWithoutFeedback
+      onPress={handleTap}
+      testID='videoContainer'
+    >
       <View style={styles.container}>
         <Video
           ref={videoRef}
@@ -73,9 +76,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, initialLikes, onLik
           useNativeControls={false}
           resizeMode={ResizeMode.COVER}
           shouldPlay={isPlaying}
+          testID='videoPlayer'
         />
         <View style={styles.likesContainer}>
-        <Text style={[styles.likesText, liked ? styles.liked : styles.notLiked]}>
+        <Text
+          style={[styles.likesText, liked ? styles.liked : styles.notLiked]}
+          testID='likesText'
+        >
             ❤️ {likes}
           </Text>
         </View>
