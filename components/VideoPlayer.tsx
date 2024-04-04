@@ -1,26 +1,31 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Video, AVPlaybackStatus, ResizeMode } from 'expo-av';
 
 interface VideoPlayerProps {
   videoURI: string;
-  onPlaybackStatusUpdate?: (status: AVPlaybackStatus) => void;
+  initialLikes: number;
+  onLike: () => void;
 }
 
 const { width, height } = Dimensions.get('window');
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, onPlaybackStatusUpdate }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, initialLikes, onLike }) => {
   const videoRef = useRef<Video>(null);
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState(initialLikes);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const now = Date.now();
 
   let lastTap: number = 0;
 
-  const handleTap = () => {
-    const now = Date.now();
+  const handleTap = useCallback(() => {
     if (lastTap && (now - lastTap) < 300) {
-      setLikes(likes + 1);
+      // Double tap - like the video
+      setLikes(prev => prev + 1);
+      onLike();
     } else {
+      // Single tap - toggle play/pause
       lastTap = now;
       setTimeout(() => {
         if (now === lastTap) {
@@ -33,7 +38,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, onPlaybackStatusUpd
         }
       }, 300);
     }
-  };
+  }, [isPlaying, onLike]);
 
   return (
     <TouchableWithoutFeedback onPress={handleTap}>
@@ -46,7 +51,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, onPlaybackStatusUpd
           resizeMode={ResizeMode.COVER}
           isLooping
           shouldPlay={isPlaying}
-          onPlaybackStatusUpdate={onPlaybackStatusUpdate}
         />
         <View style={styles.likesContainer}>
           <Text style={styles.likesText}>❤️ {likes}</Text>

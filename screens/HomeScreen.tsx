@@ -1,21 +1,30 @@
-import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList } from 'react-native';
 
 import VideoPlayer from '../components/VideoPlayer';
-
-const videos = [
-  {id: '1', uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/AaXXPDyt/JAAQ-RM-AX-001.mp4.mp4'},
-  {id: '2', uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/jeZ26hu9/JAAQ-RM-AX-002.mp4.mp4'},
-  {id: '3', uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/tBmQgLTl/JAAQ-RM-AX-003.mp4.mp4'},
-  {id: '4', uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/qg1d94dG/JAAQ-RM-AX-004.mp4.mp4'},
-  {id: '5', uri: 'https://media.publit.io/file/h_720/Production/84/VideoAnswers/qg1d94dG/JAAQ-RM-AX-004.mp4.mp4'},
-];
+import { videos as mockVideos } from '../services/videos';
 
 const HomeScreen: React.FC = () => {
+  const [videos, setVideos] = useState(mockVideos);
+
+  const handleLike = (id: string) => {
+    setVideos(videos =>
+      videos.map(video =>
+        video.id === id ? { ...video, likes: video.likes + 1 } : video
+      )
+    );
+  };
+
   return (
     <FlatList
       data={videos}
-      renderItem={({ item }) => <VideoPlayer videoURI={item.uri} />}
+      renderItem={({ item }) => (
+        <VideoPlayer
+          videoURI={item.uri}
+          initialLikes={item.likes}
+          onLike={() => handleLike(item.id)}
+        />
+      )}
       keyExtractor={item => item.id}
       pagingEnabled
       horizontal={false}
