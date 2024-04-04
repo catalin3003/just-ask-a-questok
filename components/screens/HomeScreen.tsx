@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { FlatList, type ViewToken, type ViewabilityConfig } from 'react-native';
 
 import VideoPlayer from '../VideoPlayer';
 
@@ -11,6 +11,7 @@ type Video = {
 
 const HomeScreen: React.FC = () => {
   const [videos, setVideos] = useState<Video[]>([]);
+  const [viewableItems, setViewableItems] = useState<string[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:3000/videos')
@@ -18,6 +19,14 @@ const HomeScreen: React.FC = () => {
       .then((data: Video[]) => setVideos(data))
       .catch(console.error);
   }, []);
+
+  const viewabilityConfig: ViewabilityConfig = {
+    itemVisiblePercentThreshold: 50
+  };
+
+  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    setViewableItems(viewableItems.map(item => item.item.id));
+  });
 
   const handleLike = (id: string) => {
     fetch(`http://localhost:3000/videos/${id}/like`, { method: 'POST' })
@@ -39,12 +48,15 @@ const HomeScreen: React.FC = () => {
           videoURI={item.uri}
           initialLikes={item.likes}
           onLike={() => handleLike(item.id)}
+          isViewable={viewableItems.includes(item.id)}
         />
       )}
       keyExtractor={item => item.id}
       pagingEnabled
       horizontal={false}
       showsVerticalScrollIndicator={false}
+      onViewableItemsChanged={onViewableItemsChanged.current}
+      viewabilityConfig={viewabilityConfig}
     />
   );
 };

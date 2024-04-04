@@ -1,19 +1,28 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { Video, AVPlaybackStatus, ResizeMode } from 'expo-av';
+import { Video, ResizeMode } from 'expo-av';
 
 interface VideoPlayerProps {
   videoURI: string;
   initialLikes: number;
   onLike: () => void;
+  isViewable: boolean;
 }
 
 const { width, height } = Dimensions.get('window');
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, initialLikes, onLike }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoURI, initialLikes, onLike, isViewable }) => {
   const videoRef = useRef<Video>(null);
   const [likes, setLikes] = useState(initialLikes);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (isViewable) {
+      videoRef.current?.playAsync();
+    } else {
+      videoRef.current?.pauseAsync();
+    }
+  }, [isViewable]);
 
   const now = Date.now();
 
