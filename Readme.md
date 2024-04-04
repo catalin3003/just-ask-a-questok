@@ -32,6 +32,9 @@ These instructions will get you a copy of the project up and running on your loc
 - Single-tap on a video to play or pause it.
 - Double-tap on a video to 'like' it or 'unlike' it. Likes are updated in real-time and persisted on the backend.
 
+### Demo
+<video width="1290" height="2796" src="https://private-user-images.githubusercontent.com/24395015/319428111-16b347e2-b1e3-4b2f-83df-c4632c818d6c.mp4"></video>
+
 ## Built With
 
 - React Native, Expo, Node.js, Express, TypeScript
