@@ -1,4 +1,4 @@
-# Just Ask A QuesTok
+# Just Ask A QuesTok ;)
 
 This project is a simplified version of a TikTok-style video player. It features a React Native frontend app and a Node.js/Express backend server, both utilizing TypeScript for enhanced development experience.
 
